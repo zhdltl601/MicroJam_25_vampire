@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -13,6 +14,10 @@ namespace Game
         {
             score += value;
             EventScoreChange?.Invoke(score);
+        }
+        public void SlowMotion(float duration)
+        {
+            //DOVirtual.Float(Time.timeScale, 1, duration);
         }
 
     }
