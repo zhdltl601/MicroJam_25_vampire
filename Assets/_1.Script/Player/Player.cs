@@ -6,12 +6,24 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoSingleton<Player>
     {
+        [SerializeField] private float fuelReduceMultiplier;
+
+        [SerializeField] private float fuelMeter;
+        [SerializeField] private float speedMeter;
+        public float GetSpeedMeter { get => speedMeter; }
+
+        public bool IsFuelIncreassing { get; private set; }
+        public bool IsPlayerDead { get; private set; }
+        public event Action EventPlayerDamaged;
+        public event Action EventPlayerDead;
+        public event Action<float> EventFuelChange;
+
         private readonly Dictionary<Type, IPlayerComponent> componentDictionary = new();
-        public static bool IsPlayerDead { get; private set; }
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             void InitializeComponent()
             {
                 var componentList = GetComponentsInChildren<IPlayerComponent>(true).
@@ -19,22 +31,15 @@ namespace Game
                 componentList.ForEach(x => InitComponent(x));
             }
             InitializeComponent();
+            StartCoroutine(CO_Fuel());
             //componentDictionary.Remove(typeof(PlayerMovement));
-            //print(GetPlayerComponent<PlayerMovement>());
         }
-        private void Start()
+        public void AddFuel(float value)
         {
-            GameManager.EventPlayerDead += HandleOnPlayerDead;
+            fuelMeter += value;
+            EventFuelChange?.Invoke(fuelMeter);
+            CalculateFuel(fuelMeter -= value);
         }
-        private void OnDestroy()
-        {
-            GameManager.EventPlayerDead -= HandleOnPlayerDead;
-        }
-        private void HandleOnPlayerDead()
-        {
-            IsPlayerDead = true;
-        }
-
         private void Update()
         {
             void GetInput()
@@ -44,7 +49,38 @@ namespace Game
                     GetPlayerComponent<PlayerMovement>().Jump();
                 }
             }
+            speedMeter += IsFuelIncreassing ? Time.deltaTime : -Time.deltaTime;
             GetInput();
+        }
+        private IEnumerator CO_Fuel()
+        {
+            while (!IsPlayerDead)
+            {
+                yield return null;
+
+                var before = fuelMeter;
+                fuelMeter -= fuelReduceMultiplier * Time.deltaTime;
+                EventFuelChange?.Invoke(fuelMeter);
+                CalculateFuel(before);
+            }
+        }
+        private void CalculateFuel(float beforeFuel)
+        {
+            void DeadCheck()
+            {
+                if (fuelMeter <= 0)
+                {
+                    fuelMeter = 0;
+                    EventPlayerDead?.Invoke();
+                    print("Dead");
+                }
+            }
+            bool IsFuelIncreassing()
+            {
+                return fuelMeter < beforeFuel;
+            }
+            DeadCheck();
+            this.IsFuelIncreassing = IsFuelIncreassing();
         }
         public T GetPlayerComponent<T>() where T : MonoBehaviour, IPlayerComponent
         {

@@ -12,13 +12,13 @@ namespace Game.UI
         [SerializeField] private TextMeshProUGUI scoreTM;
         private void Start()
         {
-            GameManager.EventFuelChange += HandleOnFuelChange;
+            Player.Instance.EventFuelChange += HandleOnFuelChange;
             GameManager.EventScoreChange += HandleOnScoreChange;
         }
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            GameManager.EventFuelChange -= HandleOnFuelChange;
+            Player.Instance.EventFuelChange -= HandleOnFuelChange;
             GameManager.EventScoreChange -= HandleOnScoreChange;
         }
         private void HandleOnFuelChange(float obj)

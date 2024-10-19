@@ -9,7 +9,7 @@ namespace Game
         [SerializeField] private GameObject _prefabBlood;
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            GameManager.Instance.AddFuel(2);
+            Player.Instance.AddFuel(2);
             Destroy(gameObject);
         }
     }

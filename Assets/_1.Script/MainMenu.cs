@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private Stack<GameObject> uiStack = new();
+    private readonly Stack<GameObject> uiStack = new();
     [SerializeField] private GameObject op;
     [SerializeField] private GameObject cr;
     private void Update()
