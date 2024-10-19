@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
+using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -10,6 +13,14 @@ namespace Game.UI
     {
         [SerializeField] private TextMeshProUGUI fuelMeterTM;
         [SerializeField] private TextMeshProUGUI scoreTM;
+        
+        [Header("BloodScreen")]
+        [SerializeField] private Image bloodScreen;
+        [SerializeField] private float bloodScreenDuration;
+        private float targetBlood = 0.4f;
+
+        
+        
         private void Start()
         {
             GameManager.EventFuelChange += HandleOnFuelChange;
@@ -29,6 +40,18 @@ namespace Game.UI
         {
             scoreTM.text     = $"Score      : {score}";
         }
+        
+        [ContextMenu("지건")]
+        private void BloodScreen()
+        {
+            bloodScreen.DOFade(targetBlood , bloodScreenDuration).OnComplete(() =>
+            {
+                bloodScreen.DOFade(0, bloodScreenDuration);
+            });
+
+
+        }
+        
     }
 
 }

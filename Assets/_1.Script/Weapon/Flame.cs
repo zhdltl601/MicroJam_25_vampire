@@ -14,6 +14,9 @@ public class Flame : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        //print(other);
+        if (other.TryGetComponent(out BossHealth health))
+        {
+            health.GetDamage(0.2f);
+        }
     }
 }
