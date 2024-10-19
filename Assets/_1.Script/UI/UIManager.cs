@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +10,25 @@ namespace Game.UI
     {
         [SerializeField] private TextMeshProUGUI fuelMeterTM;
         [SerializeField] private TextMeshProUGUI scoreTM;
+        private void Start()
+        {
+            GameManager.EventFuelChange += HandleOnFuelChange;
+            GameManager.EventScoreChange += HandleOnScoreChange;
+        }
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            GameManager.EventFuelChange -= HandleOnFuelChange;
+            GameManager.EventScoreChange -= HandleOnScoreChange;
+        }
+        private void HandleOnFuelChange(float obj)
+        {
+            fuelMeterTM.text = $"Fuel Meter : {obj}";
+        }
+        private void HandleOnScoreChange(int score)
+        {
+            scoreTM.text     = $"Score      : {score}";
+        }
     }
 
 }

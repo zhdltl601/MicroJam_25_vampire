@@ -10,5 +10,9 @@ namespace Game
         {
             print("Player Camera Init");
         }
+        public void CameraShake(float amount)
+        {
+
+        }
     }
 }

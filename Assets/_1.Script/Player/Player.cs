@@ -9,6 +9,7 @@ namespace Game
     public class Player : MonoBehaviour
     {
         private readonly Dictionary<Type, IPlayerComponent> componentDictionary = new();
+        public static bool IsPlayerDead { get; private set; }
         private void Awake()
         {
             void InitializeComponent()
@@ -19,9 +20,21 @@ namespace Game
             }
             InitializeComponent();
             //componentDictionary.Remove(typeof(PlayerMovement));
-            print(GetPlayerComponent<PlayerMovement>());
             //print(GetPlayerComponent<PlayerMovement>());
         }
+        private void Start()
+        {
+            GameManager.EventPlayerDead += HandleOnPlayerDead;
+        }
+        private void OnDestroy()
+        {
+            GameManager.EventPlayerDead -= HandleOnPlayerDead;
+        }
+        private void HandleOnPlayerDead()
+        {
+            IsPlayerDead = true;
+        }
+
         private void Update()
         {
             void GetInput()
@@ -39,7 +52,7 @@ namespace Game
             {
                 return value as T;
             }
-            Debug.LogError("can't find component, reInitializing...");
+            Debug.LogError("can't find Player_Component, reInitializing...");
             return InitComponent() as T;
         }
         private IPlayerComponent InitComponent(IPlayerComponent component = null)
