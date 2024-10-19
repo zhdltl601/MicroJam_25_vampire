@@ -54,8 +54,8 @@ namespace Game
         {
             if (fuelAmount <= 0)
             {
-                EventPlayerDead?.Invoke();
                 fuelMeter = 0;
+                EventPlayerDead?.Invoke();
                 print("Dead");
             }
         }
