@@ -11,7 +11,7 @@ namespace Game.Extension
             T result = mono.GetComponent<T>();
             if (result == null)
             {
-                Debug.LogWarning("Component Not PreExisted, Adding default Component...");
+                Debug.LogWarning($"{mono.gameObject}Component Not PreExisted, Adding default Component...");
                 result = mono.gameObject.AddComponent<T>();
             }
             return result;
