@@ -25,25 +25,20 @@ public class IntroPlayer : MonoBehaviour
     private void Fade(int targetValue, float duration, Action startFunc = null, Action callback = null)
     {
         isAvailable = false;
+        
         startFunc?.Invoke();
-        Color32 r = _startBG.color;
-        r.a = (byte)(targetValue == 0 ? 255 : 0);
-        _startBG.color = r;
-
-        var result = _startBG.DOFade(targetValue, duration);
-        if (callback != null)
+        
+         _startBG.DOFade(targetValue, duration).OnComplete(() =>
         {
-            result.OnComplete(() =>
-            {
-                callback.Invoke();
-            });
-        }
+           callback?.Invoke();
+        });
+       
     }
     private void Update()
     {
         if (isAvailable)
         {
-            if (Input.anyKeyDown && !Input.GetKey(KeyCode.S))
+            if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.S))
             {
                 Next();
             }
@@ -55,7 +50,7 @@ public class IntroPlayer : MonoBehaviour
     }
     private void OnEnd()
     {
-        Fade(255, 2, callback: () =>
+        Fade(1, 2, callback: () =>
         {
             SceneManager.LoadScene("GameScene");
         });
