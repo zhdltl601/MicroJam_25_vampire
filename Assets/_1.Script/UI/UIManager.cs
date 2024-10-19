@@ -23,13 +23,13 @@ namespace Game.UI
         
         private void Start()
         {
-            Player.Instance.EventFuelChange += HandleOnFuelChange;
+            Player.EventFuelChange += HandleOnFuelChange;
             GameManager.EventScoreChange += HandleOnScoreChange;
         }
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            Player.Instance.EventFuelChange -= HandleOnFuelChange;
+            Player.EventFuelChange -= HandleOnFuelChange;
             GameManager.EventScoreChange -= HandleOnScoreChange;
         }
         private void HandleOnFuelChange(float obj)

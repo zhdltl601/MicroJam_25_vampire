@@ -12,13 +12,14 @@ namespace Game
 
         [SerializeField] private float fuelMeter;
         [SerializeField] private float speedMeter;
+        [SerializeField] private int hp;
         public float GetSpeedMeter { get => speedMeter; }
 
         public bool IsFuelIncreassing { get; private set; }
         public bool IsPlayerDead { get; private set; }
-        public event Action EventPlayerDamaged;
-        public event Action EventPlayerDead;
-        public event Action<float> EventFuelChange;
+        public static event Action EventPlayerDamaged;
+        public static event Action EventPlayerDead;
+        public static event Action<float> EventFuelChange;
 
         private readonly Dictionary<Type, IPlayerComponent> componentDictionary = new();
         protected override void Awake()
@@ -39,6 +40,11 @@ namespace Game
             fuelMeter += value;
             EventFuelChange?.Invoke(fuelMeter);
             CalculateFuel(fuelMeter -= value);
+        }
+        public void AddHp(int value)
+        {
+            hp += value;
+            //EventPlayerDamaged;
         }
         private void Update()
         {
