@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     private readonly Stack<GameObject> uiStack = new();
     [SerializeField] private GameObject op;
     [SerializeField] private GameObject cr;
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.B))
@@ -19,16 +20,16 @@ public class MainMenu : MonoBehaviour
 
     private void PopUI()
     {
-        if (uiStack.Count > 1)
+        if (uiStack.Count >= 1)
         {
             var r = uiStack.Pop();
             r.SetActive(false);
         }
     }
-    private void AddUIToStack(GameObject gameObject)
+    private void AddUIToStack(GameObject _gameObject)
     {
-        uiStack.Push(gameObject);
-        gameObject.SetActive(true);
+        uiStack.Push(_gameObject);
+        _gameObject.SetActive(true);
     }
 
     public void OnStart()
