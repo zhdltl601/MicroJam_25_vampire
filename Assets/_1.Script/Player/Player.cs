@@ -83,7 +83,7 @@ namespace Game
             }
             bool IsFuelIncreassing()
             {
-                return fuelMeter < beforeFuel;
+                return fuelMeter > beforeFuel;
             }
             DeadCheck();
             this.IsFuelIncreassing = IsFuelIncreassing();
