@@ -41,24 +41,21 @@ namespace Game
 
         private void Update()
         {
-            void GetInput()
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    GetPlayerComponent<PlayerMovement>().Jump();
-                }
-                if (Input.GetKey(KeyCode.Mouse0))
-                {
-                    GetPlayerComponent<FlameThrower>().Fire();
-                    fuelReduceMultiplier = 2.5f;
-                }
-                if (Input.GetKeyUp(KeyCode.Mouse0))
-                {
-                    fuelReduceMultiplier = 1f;
-                }
+                GetPlayerComponent<PlayerMovement>().Jump();
             }
+            if (Input.GetMouseButton(0))
+            {
+                GetPlayerComponent<FlameThrower>().Fire();
+                fuelReduceMultiplier = 2.5f;
+            }
+            if (Input.GetKeyUp(KeyCode.Mouse0))
+            {
+                fuelReduceMultiplier = 1f;
+            }
+            
             speedMeter += fuelMeter > 0 ? Time.deltaTime : - Time.deltaTime;
-            GetInput();
         }
         private IEnumerator CO_Fuel()
         {
