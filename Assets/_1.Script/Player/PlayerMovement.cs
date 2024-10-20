@@ -9,6 +9,7 @@ namespace Game
     {
         [Header("Serailized Memebers")]
         [SerializeField] private float jumpValue;
+        [SerializeField] private float maxY;
 
         //private members
         private Rigidbody2D rigidBody;
@@ -21,7 +22,6 @@ namespace Game
         }
         private void Update()
         {
-            float maxY = 5;
             Vector3 clampedVector = transform.position;
             if (clampedVector.y > maxY)
                 clampedVector.y = maxY;
@@ -32,6 +32,11 @@ namespace Game
         {
             rigidBody = this.GetComponentOrAdd<Rigidbody2D>();
             print("movement init");
+        }
+
+        public void Dispose(Player _player)
+        {
+
         }
     }
 

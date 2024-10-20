@@ -4,18 +4,14 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Human : MonoBehaviour, ICollectable
+    public class Human : Collectable
     {
         [SerializeField] private GameObject _prefabBlood;
 
-        public void OnCollected()
+        public override void OnCollected()
         {
-            Player.Instance.AddFuel(10);
+            Instantiate(_prefabBlood, transform.position, Quaternion.identity, null);
             Destroy(gameObject);
-        }
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            OnCollected();
         }
     }
 

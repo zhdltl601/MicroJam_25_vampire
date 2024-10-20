@@ -23,21 +23,22 @@ namespace Game
     
         private void Update()
         {
-           
-        }
-
-        public void Fire()
-        {
             Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-            
             Vector3 direction = mousePos - transform.position;
             
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             
             transform.rotation = Quaternion.Euler(0, 0, angle);
-            
+        }
+
+        public void Fire()
+        {
             _fire.Play();
             //_smoke.Play();
+        }
+
+        public void Dispose(Player _player)
+        {
 
         }
     }
