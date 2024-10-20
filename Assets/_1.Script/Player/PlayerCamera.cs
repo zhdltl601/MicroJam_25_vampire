@@ -20,18 +20,9 @@ namespace Game
         {
             print("Player Camera Init");
         }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                CameraShake(0.5f);
-            }
-        }
-
         public void CameraShake(float amount)
         {
-            _source.m_DefaultVelocity = new Vector3(Random.Range(-0.2f,0.2f) , Random.Range(-0.2f , 0.2f) , Random.Range(-0.2f, 0.2f));
+            _source.m_DefaultVelocity = new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f));
             _source.GenerateImpulse(amount);
         }
     }

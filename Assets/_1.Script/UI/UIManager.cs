@@ -13,32 +13,37 @@ namespace Game.UI
     {
         [SerializeField] private TextMeshProUGUI fuelMeterTM;
         [SerializeField] private TextMeshProUGUI scoreTM;
+        [SerializeField] private TextMeshProUGUI speedTM;
         
         [Header("BloodScreen")]
         [SerializeField] private Image bloodScreen;
         [SerializeField] private float bloodScreenDuration;
         private float targetBlood = 0.4f;
-
-        
         
         private void Start()
         {
             Player.EventFuelChange += HandleOnFuelChange;
+            Player.EventSpeedChange += HandleOnSpeedChange;
             GameManager.EventScoreChange += HandleOnScoreChange;
         }
         protected override void OnDestroy()
         {
             base.OnDestroy();
             Player.EventFuelChange -= HandleOnFuelChange;
+            Player.EventSpeedChange -= HandleOnSpeedChange;
             GameManager.EventScoreChange -= HandleOnScoreChange;
         }
         private void HandleOnFuelChange(float obj)
         {
-            fuelMeterTM.text = $"Fuel Meter : {obj}";
+            fuelMeterTM.text = $"Fuel Meter  : {obj}";
         }
         private void HandleOnScoreChange(int score)
         {
-            scoreTM.text     = $"Score      : {score}";
+            scoreTM.text     = $"Score       : {score}";
+        }
+        private void HandleOnSpeedChange(float currentSpeed)
+        {
+            speedTM.text     = $"Speed Meter : {currentSpeed}";
         }
         
         [ContextMenu("지건")]

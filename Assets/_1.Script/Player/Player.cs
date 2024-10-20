@@ -12,10 +12,13 @@ namespace Game
 
         [SerializeField] private float fuelMeter;
         [SerializeField] private float speedMeter;
+        [SerializeField] private float traveledUnit;
         public float GetSpeedMeter { get => speedMeter; }
 
         public bool IsPlayerDead { get; private set; }
-        public static event Action EventPlayerDead;
+        public static event Action<float> EventUnitChanged;
+        public static event Action<float> EventSpeedChange;
+        public static event Action        EventPlayerDead;
         public static event Action<float> EventFuelChange;
 
         private readonly Dictionary<Type, IPlayerComponent> componentDictionary = new();
@@ -51,6 +54,7 @@ namespace Game
                 {
                     GetPlayerComponent<FlameThrower>().Fire();
                     fuelReduceMultiplier = 2.5f;
+                    GetPlayerComponent<PlayerCamera>().CameraShake(0.2f);
                 }
                 if (Input.GetKeyUp(KeyCode.Mouse0))
                 {
@@ -58,6 +62,11 @@ namespace Game
                 }
             }
             speedMeter += fuelMeter > 0 ? Time.deltaTime : - Time.deltaTime;
+            EventSpeedChange?.Invoke(speedMeter);
+
+            traveledUnit += speedMeter * Time.deltaTime;
+            EventUnitChanged?.Invoke(traveledUnit);
+
             GetInput();
         }
         private IEnumerator CO_Fuel()
