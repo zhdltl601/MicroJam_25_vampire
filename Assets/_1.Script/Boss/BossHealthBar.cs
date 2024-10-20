@@ -30,14 +30,18 @@ public class BossHealthBar : MonoBehaviour
     {
         if (available && lastHitTime + 2 < Time.time)
         {
+            print("ming");
             float newHealth = healthBar.value;
             SetHealthBar(newHealth);
+            available = false;
         }
     }
     private void HandleHitEvent(float health)
     {
+        print("hit");
         healthBar.value = health;
         lastHitTime = Time.time;
+        available = true;
     }
 
     public void SetHealthBar(float health)
