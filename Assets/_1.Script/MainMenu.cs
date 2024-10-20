@@ -45,7 +45,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnStart()
     {
-        SceneManager.LoadScene("IntroScene");
+        SceneManager.LoadScene("GameScene");
     }
     public void OnOption()
     {

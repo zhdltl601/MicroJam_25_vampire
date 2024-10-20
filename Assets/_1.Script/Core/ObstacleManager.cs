@@ -22,11 +22,10 @@ namespace Game
         public bool isBossMode;
         [SerializeField] private GameObject[] bossList;
 
-        private void Start()
-        {
-
-            EnterBoss();
-        }
+    private void Start()
+    {
+        //EnterBoss();
+    }
 
         private void Update()
         {

@@ -19,11 +19,13 @@ namespace Game
         private float timer = 0;
         private float attackTime = 3;
         private bool isAttacking;
-
+        
+        
+        
         private void Start()
         {
-
-            DOVirtual.DelayedCall(1, () =>
+            
+            DOVirtual.DelayedCall(1 , () =>
             {
                 bossHealthTrm.DOAnchorPosY(-450, 3f).SetEase(Ease.InSine);
             });
