@@ -9,7 +9,7 @@ namespace Game
 {
     public class Blood : Collectable
     {
-        private const float endTime = 1;
+        private const float endTime = 0.8f;
         private void Start()
         {
             StartCoroutine(CO_GotoPlayer());
@@ -40,12 +40,12 @@ Vector3 toPlayerDir = transform.position - playerTrm.position;
         public override void OnCollected()
         {
             Player.Instance.AddFuel(10);
-            DOVirtual.Vector3(transform.position, Vector3.zero, 1, (v3) =>
+            DOVirtual.Float(1, 0, 0.1f, (v3) =>
             {
-                Vector3 result = v3;
+                Vector3 result = new Vector3(v3, v3, v3);
                 result.z = 1;
                 transform.localScale = result;
-            }).OnComplete(() => Destroy(gameObject));
+            }).OnComplete(() => { Destroy(gameObject);print("delete"); });
         }
     }
 

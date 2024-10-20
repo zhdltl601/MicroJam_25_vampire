@@ -23,21 +23,23 @@ namespace Game.UI
         private void Start()
         {
             Player.EventFuelChange += HandleOnFuelChange;
-            Player.EventSpeedChange += HandleOnSpeedChange;
+            //Player.EventSpeedChange += HandleOnSpeedChange;
             Player.EventUnitChanged += HandleOnUnitChange;
+            Player.EventPlayerDamaged += BloodScreen;
             GameManager.EventScoreChange += HandleOnScoreChange;
         }
         protected override void OnDestroy()
         {
             base.OnDestroy();
             Player.EventFuelChange -= HandleOnFuelChange;
-            Player.EventSpeedChange -= HandleOnSpeedChange;
+            //Player.EventSpeedChange -= HandleOnSpeedChange;
             Player.EventUnitChanged -= HandleOnUnitChange;
+            Player.EventPlayerDamaged -= BloodScreen;
             GameManager.EventScoreChange -= HandleOnScoreChange;
         }
         private void HandleOnFuelChange(float obj)
         {
-            fuelMeterTM.text = $"Fuel Meter  : {obj}";
+            fuelMeterTM.text = $"Blood Meter  : {obj}";
         }
         private void HandleOnSpeedChange(float currentSpeed)
         {
@@ -52,15 +54,12 @@ namespace Game.UI
             scoreTM.text     = $"Score       : {score}";
         }
         
-        [ContextMenu("지건")]
         private void BloodScreen()
         {
             bloodScreen.DOFade(targetBlood , bloodScreenDuration).OnComplete(() =>
             {
                 bloodScreen.DOFade(0, bloodScreenDuration);
             });
-
-
         }
         
     }

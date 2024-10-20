@@ -73,6 +73,8 @@ namespace Game
             {
                 fuelReduceMultiplier = 1f;
             }
+            if (Input.GetKeyDown(KeyCode.K))
+                TakeDamage(1);
             
             speedMeter += fuelMeter > 0 ? Time.deltaTime : - Time.deltaTime;
             float speedMeterClamped = Mathf.Clamp(speedMeter, 0, Mathf.Infinity);
