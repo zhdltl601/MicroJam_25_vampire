@@ -29,7 +29,7 @@ namespace Game
         public void Fire()
         {
             Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-            print(mousePos);
+            
             Vector3 direction = mousePos - transform.position;
             
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

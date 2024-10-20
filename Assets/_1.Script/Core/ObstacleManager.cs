@@ -10,6 +10,8 @@ public class ObstacleManager : MonoBehaviour
     public List<GameObject> obstacleType;
     
     [SerializeField] private Transform spawnTrm;
+    [SerializeField] private Transform bossTrm;
+    
     [SerializeField] private float spawnTime = 1.2f;
     private float timer = 0;
     private float bossTimer = 0;
@@ -17,7 +19,13 @@ public class ObstacleManager : MonoBehaviour
     [Header("Boss info")]
     public bool isBossMode;
     [SerializeField] private GameObject[] bossList;
-    
+
+    private void Start()
+    {
+       
+        EnterBoss();
+    }
+
     private void Update()
     {
         if(isBossMode == true)return;
@@ -40,10 +48,10 @@ public class ObstacleManager : MonoBehaviour
         }
     }
     
-    [ContextMenu("시작")]
     public void EnterBoss()
     {
         isBossMode = true;
-        Instantiate(bossList[0] , transform.position , Quaternion.identity);
+        GameObject newBoss = Instantiate(bossList[0] , spawnTrm.position , Quaternion.identity);
+        newBoss.GetComponent<Boss>().Initialize(bossTrm);
     }
 }
