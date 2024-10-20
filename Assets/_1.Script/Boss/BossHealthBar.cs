@@ -13,6 +13,9 @@ public class BossHealthBar : MonoBehaviour
 
     private BossHealth _bossHealth;
 
+    private float lastHitTime;
+    private bool available = false;
+
     private void Start()
     {
         _bossHealth = GetComponentInParent<BossHealth>();
@@ -23,15 +26,18 @@ public class BossHealthBar : MonoBehaviour
     {
         _bossHealth.OnHitEvent -= HandleHitEvent;
     }
-
+    private void Update()
+    {
+        if (available && lastHitTime + 2 < Time.time)
+        {
+            float newHealth = healthBar.value;
+            SetHealthBar(newHealth);
+        }
+    }
     private void HandleHitEvent(float health)
     {
         healthBar.value = health;
-        DOVirtual.DelayedCall(2 , () =>
-        {
-            float newHealth = health;
-            SetHealthBar(newHealth);
-        });
+        lastHitTime = Time.time;
     }
 
     public void SetHealthBar(float health)

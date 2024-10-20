@@ -16,6 +16,7 @@ public class Flame : MonoBehaviour
     {
         if (other.TryGetComponent(out BossHealth health))
         {
+            print("dd");
             health.GetDamage(0.2f);
         }
     }
