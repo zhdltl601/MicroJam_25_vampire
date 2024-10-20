@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Game;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,16 +12,20 @@ public class IntroPlayer : MonoBehaviour
     [Header("UI_SetUp")]
     [SerializeField] private TextMeshProUGUI _tmSubtitle;
     [SerializeField] private Image _image;
-    [SerializeField] private Image _startBG;
+    [SerializeField] private Image _fade;
 
     [SerializeField] private List<SO_Intro> _introSequence = new();
     private int currentIndex = -1;
     private bool isAvailable = false;
     private void Awake()
     {
-        _startBG.gameObject.SetActive(true);
+        _fade.gameObject.SetActive(true);
         Next();
         Fade(0, 1, callback: () => { isAvailable = true; print("ended"); });
+    }
+    private void Start()
+    {
+        AudioManager.Instance.StopSound(1);
     }
     private void Fade(int targetValue, float duration, Action startFunc = null, Action callback = null)
     {
@@ -28,7 +33,7 @@ public class IntroPlayer : MonoBehaviour
         
         startFunc?.Invoke();
         
-         _startBG.DOFade(targetValue, duration).OnComplete(() =>
+         _fade.DOFade(targetValue, duration).OnComplete(() =>
         {
            callback?.Invoke();
         });

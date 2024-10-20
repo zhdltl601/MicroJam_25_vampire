@@ -1,3 +1,4 @@
+using Game;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,17 @@ public class MainMenu : MonoBehaviour
     private readonly Stack<GameObject> uiStack = new();
     [SerializeField] private GameObject op;
     [SerializeField] private GameObject cr;
-    
+    [SerializeField] private AudioClip maniMenuBGM;
+    private void Awake()
+    {
+        op.SetActive(false);
+        cr.SetActive(false);
+    }
+    private void Start()
+    {
+        AudioManager.Instance.PlayOneShot(maniMenuBGM);
+        //AudioManager.Instance.Play(maniMenuBGM);
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.B))
@@ -18,7 +29,7 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    private void PopUI()
+    public void PopUI()
     {
         if (uiStack.Count >= 1)
         {

@@ -2,32 +2,41 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class FlameThrower : MonoBehaviour
+namespace Game
 {
-    [SerializeField] private ParticleSystem _fire;
-    [SerializeField] private ParticleSystem _smoke;
-    
-    private Camera cam;
-
-    private void Awake()
+    public class FlameThrower : MonoBehaviour, IPlayerComponent
     {
-        cam = Camera.main;
-    }
+        [SerializeField] private ParticleSystem _fire;
+        [SerializeField] private ParticleSystem _smoke;
+        
+        private Camera cam;
 
-    private void Update()
-    {
-        Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = mousePos - transform.position;
+        public void Init(Player _player)
+        {
+
+        }
+
+        private void Awake()
+        {
+            cam = Camera.main;
+        }
     
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-    
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        private void Update()
+        {
+            Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 direction = mousePos - transform.position;
         
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         
-        if (Input.GetMouseButton(0))
+            transform.rotation = Quaternion.Euler(0, 0, angle);
+        }
+
+        public void Fire()
         {
             _fire.Play();
             //_smoke.Play();
+
         }
     }
+    
 }

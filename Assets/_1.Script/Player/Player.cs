@@ -12,12 +12,9 @@ namespace Game
 
         [SerializeField] private float fuelMeter;
         [SerializeField] private float speedMeter;
-        [SerializeField] private int hp;
         public float GetSpeedMeter { get => speedMeter; }
 
-        public bool IsFuelIncreassing { get; private set; }
         public bool IsPlayerDead { get; private set; }
-        public static event Action EventPlayerDamaged;
         public static event Action EventPlayerDead;
         public static event Action<float> EventFuelChange;
 
@@ -39,13 +36,9 @@ namespace Game
         {
             fuelMeter += value;
             EventFuelChange?.Invoke(fuelMeter);
-            CalculateFuel(fuelMeter -= value);
+            CalculateFuel();
         }
-        public void AddHp(int value)
-        {
-            hp += value;
-            //EventPlayerDamaged;
-        }
+
         private void Update()
         {
             void GetInput()
@@ -54,8 +47,17 @@ namespace Game
                 {
                     GetPlayerComponent<PlayerMovement>().Jump();
                 }
+                if (Input.GetKey(KeyCode.Mouse0))
+                {
+                    GetPlayerComponent<FlameThrower>().Fire();
+                    fuelReduceMultiplier = 2.5f;
+                }
+                if (Input.GetKeyUp(KeyCode.Mouse0))
+                {
+                    fuelReduceMultiplier = 1f;
+                }
             }
-            speedMeter += IsFuelIncreassing ? Time.deltaTime : -Time.deltaTime;
+            speedMeter += fuelMeter > 0 ? Time.deltaTime : - Time.deltaTime;
             GetInput();
         }
         private IEnumerator CO_Fuel()
@@ -64,29 +66,24 @@ namespace Game
             {
                 yield return null;
 
-                var before = fuelMeter;
                 fuelMeter -= fuelReduceMultiplier * Time.deltaTime;
                 EventFuelChange?.Invoke(fuelMeter);
-                CalculateFuel(before);
+                CalculateFuel();
             }
         }
-        private void CalculateFuel(float beforeFuel)
+        private void CalculateFuel()
         {
             void DeadCheck()
             {
                 if (fuelMeter <= 0)
                 {
+                    IsPlayerDead = true;
                     fuelMeter = 0;
                     EventPlayerDead?.Invoke();
                     print("Dead");
                 }
             }
-            bool IsFuelIncreassing()
-            {
-                return fuelMeter > beforeFuel;
-            }
             DeadCheck();
-            this.IsFuelIncreassing = IsFuelIncreassing();
         }
         public T GetPlayerComponent<T>() where T : MonoBehaviour, IPlayerComponent
         {
@@ -105,7 +102,10 @@ namespace Game
             component.Init(this);
             return component;
         }
-
+        public Transform GetPlayerPosition()
+        {
+            return GetPlayerComponent<PlayerMovement>().transform;
+        }
     }
 
 }
