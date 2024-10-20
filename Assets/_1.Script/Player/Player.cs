@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Game
 {
+    [DefaultExecutionOrder(-100)]
     public class Player : MonoSingleton<Player>
     {
         [SerializeField] private float fuelReduceMultiplier;
@@ -19,6 +20,7 @@ namespace Game
         public static event Action<float> EventUnitChanged;
         public static event Action<float> EventSpeedChange;
         public static event Action        EventPlayerDead;
+        public static event Action        EventPlayerDamaged;
         public static event Action<float> EventFuelChange;
 
         private readonly Dictionary<Type, IPlayerComponent> componentDictionary = new();
@@ -35,39 +37,51 @@ namespace Game
             StartCoroutine(CO_Fuel());
             //componentDictionary.Remove(typeof(PlayerMovement));
         }
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            void OnDispose()
+            {
+                var componentList = componentDictionary.ToList();
+                componentList.ForEach(x => x.Value.Dispose(this));
+            }
+            OnDispose();
+        }
         public void AddFuel(float value)
         {
             fuelMeter += value;
             EventFuelChange?.Invoke(fuelMeter);
             CalculateFuel();
         }
-
+        public void TakeDamage(float value)
+        {
+            AddFuel(-value);
+            EventPlayerDamaged?.Invoke();
+        }
         private void Update()
         {
-            void GetInput()
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    GetPlayerComponent<PlayerMovement>().Jump();
-                }
-                if (Input.GetKey(KeyCode.Mouse0))
-                {
-                    GetPlayerComponent<FlameThrower>().Fire();
-                    fuelReduceMultiplier = 2.5f;
-                    GetPlayerComponent<PlayerCamera>().CameraShake(0.2f);
-                }
-                if (Input.GetKeyUp(KeyCode.Mouse0))
-                {
-                    fuelReduceMultiplier = 1f;
-                }
+                GetPlayerComponent<PlayerMovement>().Jump();
             }
+            if (Input.GetMouseButton(0))
+            {
+                GetPlayerComponent<FlameThrower>().Fire();
+                fuelReduceMultiplier = 2.5f;
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                fuelReduceMultiplier = 1f;
+            }
+            
             speedMeter += fuelMeter > 0 ? Time.deltaTime : - Time.deltaTime;
+            float speedMeterClamped = Mathf.Clamp(speedMeter, 0, Mathf.Infinity);
+            speedMeter = speedMeterClamped;
             EventSpeedChange?.Invoke(speedMeter);
 
             traveledUnit += speedMeter * Time.deltaTime;
             EventUnitChanged?.Invoke(traveledUnit);
 
-            GetInput();
         }
         private IEnumerator CO_Fuel()
         {
@@ -111,7 +125,7 @@ namespace Game
             component.Init(this);
             return component;
         }
-        public Transform GetPlayerPosition()
+        public Transform GetPlayerTransform()
         {
             return GetPlayerComponent<PlayerMovement>().transform;
         }

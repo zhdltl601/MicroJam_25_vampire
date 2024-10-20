@@ -7,6 +7,7 @@ namespace Game
     public interface IPlayerComponent
     {
         void Init(Player _player);
+        void Dispose(Player _player);
     }
 
 }

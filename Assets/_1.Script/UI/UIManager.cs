@@ -24,6 +24,7 @@ namespace Game.UI
         {
             Player.EventFuelChange += HandleOnFuelChange;
             Player.EventSpeedChange += HandleOnSpeedChange;
+            Player.EventUnitChanged += HandleOnUnitChange;
             GameManager.EventScoreChange += HandleOnScoreChange;
         }
         protected override void OnDestroy()
@@ -31,19 +32,24 @@ namespace Game.UI
             base.OnDestroy();
             Player.EventFuelChange -= HandleOnFuelChange;
             Player.EventSpeedChange -= HandleOnSpeedChange;
+            Player.EventUnitChanged -= HandleOnUnitChange;
             GameManager.EventScoreChange -= HandleOnScoreChange;
         }
         private void HandleOnFuelChange(float obj)
         {
             fuelMeterTM.text = $"Fuel Meter  : {obj}";
         }
-        private void HandleOnScoreChange(int score)
-        {
-            scoreTM.text     = $"Score       : {score}";
-        }
         private void HandleOnSpeedChange(float currentSpeed)
         {
             speedTM.text     = $"Speed Meter : {currentSpeed}";
+        }
+        private void HandleOnUnitChange(float obj)
+        {
+            
+        }
+        private void HandleOnScoreChange(int score)
+        {
+            scoreTM.text     = $"Score       : {score}";
         }
         
         [ContextMenu("지건")]

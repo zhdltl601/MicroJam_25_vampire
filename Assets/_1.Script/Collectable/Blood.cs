@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,10 +7,9 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class Blood : MonoBehaviour
+    public class Blood : Collectable
     {
         private const float endTime = 1;
-
         private void Start()
         {
             StartCoroutine(CO_GotoPlayer());
@@ -17,7 +17,7 @@ namespace Game
         private IEnumerator CO_GotoPlayer()
         {
             float timer = 0;
-            Transform playerTrm = Player.Instance.GetPlayerPosition();
+            Transform playerTrm = Player.Instance.GetPlayerTransform();
 Vector3 toPlayerDir = transform.position - playerTrm.position;
             static float GetRnadomNumber()
             {
@@ -37,9 +37,15 @@ Vector3 toPlayerDir = transform.position - playerTrm.position;
                 yield return null;
             }
         }
-        private void OnTriggerEnter2D(Collider2D collision)
+        public override void OnCollected()
         {
-            
+            Player.Instance.AddFuel(10);
+            DOVirtual.Vector3(transform.position, Vector3.zero, 1, (v3) =>
+            {
+                Vector3 result = v3;
+                result.z = 1;
+                transform.localScale = result;
+            }).OnComplete(() => Destroy(gameObject));
         }
     }
 
