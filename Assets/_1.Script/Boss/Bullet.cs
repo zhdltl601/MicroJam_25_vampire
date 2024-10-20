@@ -4,9 +4,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private float timer;
-    [SerializeField] private LayerMask whatIsEnemy;
-    
-    
+    [SerializeField] private LayerMask whatIsTarget;
+
     private void Update()
     {
         timer += Time.deltaTime;
@@ -14,11 +13,13 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Destroy(gameObject);
+        if ((whatIsTarget & (1 << other.gameObject.layer)) != 0)
+        {
+            Destroy(gameObject); // 총알을 파괴
+        }
     }
 }
