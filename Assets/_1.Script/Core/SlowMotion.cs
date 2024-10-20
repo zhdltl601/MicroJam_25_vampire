@@ -1,30 +1,47 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SlowMotion : MonoBehaviour
 {
-
-    public void SlowMotionStart(float target , float duration , float coolDown)
+    [SerializeField] private float startValue;
+    [SerializeField] private float endValue;
+    
+    [SerializeField] private float duration;
+    [SerializeField] private float coolDown;
+    private void Update()
     {
-        StartCoroutine(ISlowCoroutine(target , duration , coolDown));
+        if (Input.GetMouseButtonDown(1))
+        {
+            SlowMotionStart(startValue,endValue, duration, coolDown);
+        }
+    }
+
+
+    public void SlowMotionStart(float startValue,float endValue , float duration , float coolDown)
+    {
+        StartCoroutine(ISlowCoroutine(startValue, endValue,  duration , coolDown));
     }
     
-    private IEnumerator ISlowCoroutine(float targetValue, float duration, float coolDown)
+    private IEnumerator ISlowCoroutine(float startValue, float endValue,float duration, float coolDown)
     {
+        Time.timeScale = startValue;
         float initialTimeScale = Time.timeScale;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
         {
-            Time.timeScale = Mathf.Lerp(initialTimeScale, targetValue, elapsedTime / duration);
+            Time.timeScale = Mathf.Lerp(initialTimeScale, endValue, elapsedTime / duration);
             elapsedTime += Time.unscaledDeltaTime;
             yield return null;  
         }
 
-        Time.timeScale = targetValue;
+        Time.timeScale = endValue;
 
         yield return new WaitForSecondsRealtime(coolDown);
+        
         Time.timeScale = 1f;
     }
 }

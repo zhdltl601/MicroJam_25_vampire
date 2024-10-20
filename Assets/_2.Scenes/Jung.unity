@@ -11397,6 +11397,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7644304697704529721}
   - component: {fileID: 8913813280377764903}
+  - component: {fileID: 8985917030972728092}
   m_Layer: 0
   m_Name: PlayerCategory
   m_TagString: Untagged
@@ -11404,6 +11405,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8985917030972728092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8985917030972728091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 274ef1bb79982d64db31fe4ef43ba610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetValue: 0.2
+  duration: 1.2
+  coolDown: 1
 --- !u!1 &9027052676648899817
 GameObject:
   m_ObjectHideFlags: 0
