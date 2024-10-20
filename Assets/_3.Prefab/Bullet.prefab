@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1000
   m_Sprite: {fileID: 1931625836, guid: 2fe4bc6e3b2497941b793c8546112c91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -162,9 +162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eadc9bc9c2c4f33901050f2c4931534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whatIsEnemy:
+  whatIsTarget:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
 --- !u!95 &3421173383602173190
 Animator:
   serializedVersion: 5
