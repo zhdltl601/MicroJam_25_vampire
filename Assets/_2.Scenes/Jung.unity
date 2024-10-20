@@ -689,6 +689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fuelMeterTM: {fileID: 0}
   scoreTM: {fileID: 0}
+  speedTM: {fileID: 0}
   bloodScreen: {fileID: 0}
   bloodScreenDuration: 0
 --- !u!1 &1599870620
@@ -858,6 +859,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621482527}
   m_CullTransparentMesh: 1
+--- !u!1 &1715698070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1715698071}
+  - component: {fileID: 1715698072}
+  m_Layer: 0
+  m_Name: GoldManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1715698071
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715698070}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.47, y: -2.38, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1715698072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715698070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78094380d5ff25345b7b5ddf0be6aaf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gold: {fileID: 7288797243956454935, guid: add2566661b79be4fb40a23ff798ed13, type: 3}
+  spawnTrm: {fileID: 1715698071}
 --- !u!1001 &1777763640
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11276,6 +11323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpValue: 5
+  maxY: 0
 --- !u!1 &8058490291673186801
 GameObject:
   m_ObjectHideFlags: 0
@@ -11328,6 +11376,7 @@ MonoBehaviour:
   fuelReduceMultiplier: 1
   fuelMeter: 10
   speedMeter: 0
+  traveledUnit: 0
 --- !u!114 &8971112728581915985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11420,6 +11469,7 @@ SceneRoots:
   - {fileID: 4952888043625651313}
   - {fileID: 5101287113641522235}
   - {fileID: 914764914}
+  - {fileID: 1715698071}
   - {fileID: 1121731204}
   - {fileID: 369058311}
   - {fileID: 1937663730}
