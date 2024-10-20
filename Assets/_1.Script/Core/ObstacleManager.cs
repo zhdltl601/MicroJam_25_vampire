@@ -22,8 +22,7 @@ public class ObstacleManager : MonoBehaviour
 
     private void Start()
     {
-       
-        EnterBoss();
+        //EnterBoss();
     }
 
     private void Update()

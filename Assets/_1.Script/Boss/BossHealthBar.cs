@@ -37,7 +37,6 @@ public class BossHealthBar : MonoBehaviour
     public void SetHealthBar(float health)
     {
        
-        
         if (healthBar.value != easingHealthBar.value)
         {
             DOVirtual.Float(easingHealthBar.value, healthBar.value, 1, value => 

@@ -18,6 +18,8 @@ public class Boss : MonoBehaviour
     private float attackTime = 3;
     private bool isAttacking;
     
+    
+    
     private void Start()
     {
         
