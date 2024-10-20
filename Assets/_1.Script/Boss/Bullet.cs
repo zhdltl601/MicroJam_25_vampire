@@ -1,31 +1,25 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Game
+public class Bullet : MonoBehaviour
 {
-    public class Bullet : MonoBehaviour
+    private float timer;
+    [SerializeField] private LayerMask whatIsTarget;
+
+    private void Update()
     {
-        private float timer;
-        [SerializeField] private LayerMask whatIsEnemy;
-
-
-        private void Update()
+        timer += Time.deltaTime;
+        if (timer > 5)
         {
-            timer += Time.deltaTime;
-            if (timer > 5)
-            {
-                Destroy(gameObject);
-            }
-
+            Destroy(gameObject);
         }
+    }
 
-        private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if ((whatIsTarget & (1 << other.gameObject.layer)) != 0)
         {
-            if ((whatIsEnemy & (1 << other.gameObject.layer)) != 0)
-            {
-                Player.Instance.TakeDamage(1);
-                Destroy(gameObject); // 총알을 파괴
-            }
+            Destroy(gameObject); // 총알을 파괴
         }
     }
 }
