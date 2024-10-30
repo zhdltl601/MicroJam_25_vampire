@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace Game
     {
         [SerializeField] private RectTransform bossHealthTrm;
         private Transform bossTrm;
-
+    
         [SerializeField] private Transform firePos;
         [SerializeField] private Bullet bullet;
 
@@ -19,15 +20,30 @@ namespace Game
         private float timer = 0;
         private float attackTime = 3;
         private bool isAttacking;
-        
-        
-        
+
+        private BossHealth _health;
+
+        private void Awake()
+        {
+            _health = GetComponent<BossHealth>();
+        }
+
         private void Start()
         {
             
             DOVirtual.DelayedCall(1 , () =>
             {
                 bossHealthTrm.DOAnchorPosY(-450, 3f).SetEase(Ease.InSine);
+            });
+
+            _health.OnDeadEvent += HandleDeadEvent;
+        }
+
+        private void HandleDeadEvent()
+        {
+            transform.DOMoveY(-12,2).OnComplete(() =>
+            {
+                Destroy(gameObject);
             });
         }
 

@@ -10,8 +10,6 @@ public class BossHealth : MonoBehaviour
     public event Action<float> OnHitEvent;
         
     
-    
-    
     public void GetDamage(float damage)
     {
         health -= damage;
@@ -23,6 +21,8 @@ public class BossHealth : MonoBehaviour
             OnDeadEvent?.Invoke();
         }
     }
+    
+    
     
     
 
