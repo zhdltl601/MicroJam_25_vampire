@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Game
 {
@@ -56,6 +57,7 @@ namespace Game
         public void TakeDamage(float value)
         {
             AddFuel(-value);
+            print("damagaed");
             EventPlayerDamaged?.Invoke();
         }
         private void Update()
@@ -73,8 +75,6 @@ namespace Game
             {
                 fuelReduceMultiplier = 1f;
             }
-            if (Input.GetKeyDown(KeyCode.K))
-                TakeDamage(1);
             
             speedMeter += fuelMeter > 0 ? Time.deltaTime : - Time.deltaTime;
             float speedMeterClamped = Mathf.Clamp(speedMeter, 0, Mathf.Infinity);
@@ -106,6 +106,7 @@ namespace Game
                     fuelMeter = 0;
                     EventPlayerDead?.Invoke();
                     print("Dead");
+                    SceneManager.LoadScene("Jung2");
                 }
             }
             DeadCheck();

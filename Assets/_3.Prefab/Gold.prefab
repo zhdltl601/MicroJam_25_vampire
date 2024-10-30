@@ -124,6 +124,7 @@ MonoBehaviour:
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 8
+  ac: {fileID: 8300000, guid: efff6acabe68f4240baaf0031fc8a19f, type: 3}
 --- !u!61 &7308838032909808316
 BoxCollider2D:
   m_ObjectHideFlags: 0

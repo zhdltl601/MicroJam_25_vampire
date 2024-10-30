@@ -45,7 +45,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnStart()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("Jung 2");
     }
     public void OnOption()
     {

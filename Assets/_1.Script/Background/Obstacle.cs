@@ -15,7 +15,7 @@ namespace Game
     {
         public ObstacleType type;
         public float speed;
-
+        public LayerMask whatIsTarget;
         protected virtual void Start()
         {
             if (type == ObstacleType.Rotate)
@@ -35,7 +35,11 @@ namespace Game
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Player.Instance.TakeDamage(1);
+            if ((whatIsTarget & (1 << other.gameObject.layer)) != 0)
+            {
+                Player.Instance.TakeDamage(1);
+                print(gameObject);
+            }
         }
     }
 }

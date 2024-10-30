@@ -173,6 +173,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   speed: 5
+  whatIsTarget:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &2149017161499628487
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,6 +349,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   speed: 5
+  whatIsTarget:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &2149055731506986699
 GameObject:
   m_ObjectHideFlags: 0

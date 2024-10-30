@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5573869000522907704}
   - component: {fileID: 238612773814974174}
   - component: {fileID: 2971210868594729621}
+  - component: {fileID: 5191757203744419146}
   m_Layer: 0
   m_Name: Human
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.7735849, g: 0.5884677, b: 0.5035599, a: 1}
   m_FlipX: 0
@@ -98,7 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90302464f3eca594d826d177a0dca96c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefabBlood: {fileID: 0}
+  whatIsTarget:
+    serializedVersion: 2
+    m_Bits: 8
+  _prefabBlood: {fileID: 2675545342775568115, guid: cbc403a14c8c1d842a7e1b1b17a85340, type: 3}
 --- !u!61 &2971210868594729621
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -128,7 +132,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -144,3 +148,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5191757203744419146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7115443694670622960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 193fca374cdad20408d4c22250f80780, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  endValue: 12
